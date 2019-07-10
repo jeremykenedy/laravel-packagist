@@ -4,6 +4,7 @@
 [![Latest Stable Version](https://poser.pugx.org/jeremykenedy/laravel-packagist/v/stable.svg)](https://packagist.org/packages/jeremykenedy/laravel-packagist)
 [![Total Downloads](https://poser.pugx.org/jeremykenedy/laravel-packagist/d/total.svg)](https://packagist.org/packages/jeremykenedy/laravel-packagist)
 [![Travis-CI Build](https://travis-ci.org/jeremykenedy/laravel-packagist.svg?branch=master)](https://travis-ci.org/jeremykenedy/laravel-packagist)
+[![StyleCI](https://github.styleci.io/repos/194171634/shield?branch=master)](https://github.styleci.io/repos/194171634)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/?branch=master)
 [![License](https://poser.pugx.org/jeremykenedy/laravel-packagist/license)](https://packagist.org/packages/jeremykenedy/laravel-packagist)
