@@ -12,9 +12,9 @@ class PackagistApiServices
     /**
      * Gets the package downloads.
      *
-     * @param string $vendorAndPackage      The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return integer || string || array   The package total downloads.
+     * @return int || string || array   The package total downloads.
      */
     public static function getPackageDownloads($vendorAndPackage = null, $type = null)
     {
@@ -34,9 +34,9 @@ class PackagistApiServices
     /**
      * Gets the package daily downloads.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return integer || string        The package daily downloads.
+     * @return int || string        The package daily downloads.
      */
     public static function getPackageDailyDownloads($vendorAndPackage = null)
     {
@@ -46,9 +46,9 @@ class PackagistApiServices
     /**
      * Gets the package monthly downloads.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return integer || string        The package monthly downloads.
+     * @return int || string        The package monthly downloads.
      */
     public static function getPackageMonthlyDownloads($vendorAndPackage = null)
     {
@@ -58,9 +58,9 @@ class PackagistApiServices
     /**
      * Gets the package total downloads.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return integer || string        The package total downloads.
+     * @return int || string        The package total downloads.
      */
     public static function getPackageTotalDownloads($vendorAndPackage = null)
     {
@@ -70,9 +70,9 @@ class PackagistApiServices
     /**
      * Gets the package total forks.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return integer || string        The package total forks.
+     * @return int || string        The package total forks.
      */
     public static function getPackageTotalForks($vendorAndPackage = null)
     {
@@ -82,9 +82,9 @@ class PackagistApiServices
     /**
      * Gets the package total open issues.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return string                   The package open issues.
+     * @return string The package open issues.
      */
     public static function getPackageTotalOpenIssues($vendorAndPackage = null)
     {
@@ -94,9 +94,9 @@ class PackagistApiServices
     /**
      * Gets the package repository.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return string                   The package repository.
+     * @return string The package repository.
      */
     public static function getPackageTotalRepo($vendorAndPackage = null)
     {
@@ -106,9 +106,9 @@ class PackagistApiServices
     /**
      * Gets the package total stars.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return integer || string        The package total stars.
+     * @return int || string        The package total stars.
      */
     public static function getPackageTotalStars($vendorAndPackage = null)
     {
@@ -118,9 +118,9 @@ class PackagistApiServices
     /**
      * Gets the package total watchers.
      *
-     * @param string $vendorAndPackage  The vendor and package
+     * @param string $vendorAndPackage The vendor and package
      *
-     * @return string                   The package watchers.
+     * @return string The package watchers.
      */
     public static function getPackageTotalWatchers($vendorAndPackage = null)
     {
@@ -130,7 +130,7 @@ class PackagistApiServices
     /**
      * Gets the packagist vendor repositories list.
      *
-     * @param string $vendor  The vendor
+     * @param string $vendor The vendor
      *
      * @return collection The packagist vendor repositories list.
      */
@@ -149,9 +149,9 @@ class PackagistApiServices
             }
         }
 
-        $baseUrl    = config('laravelpackagist.urls.vendorBase') . $vendor;
-        $response   = self::curlPackagist($baseUrl);
-        $list       = collect(json_decode($response)->packageNames);
+        $baseUrl = config('laravelpackagist.urls.vendorBase').$vendor;
+        $response = self::curlPackagist($baseUrl);
+        $list = collect(json_decode($response)->packageNames);
 
         if ($cachingEnabled) {
             Cache::put($vendorKey, $list, self::getVendorListCacheTime());
@@ -163,9 +163,9 @@ class PackagistApiServices
     /**
      * Gets the vendor packages count.
      *
-     * @param string $vendor  The vendor
+     * @param string $vendor The vendor
      *
-     * @return integer  The vendor packages count.
+     * @return int The vendor packages count.
      */
     public static function getVendorPackagesCount($vendor = null)
     {
@@ -212,10 +212,10 @@ class PackagistApiServices
     /**
      * Gets the vendors package details.
      *
-     * @param string $vendorAndPackage  The vendor and package as 'vendor/package'
-     * @param      boolean  $object     Return as object
+     * @param string $vendorAndPackage The vendor and package as 'vendor/package'
+     * @param bool   $object           Return as object
      *
-     * @return Object || Array The vendors package details.
+     * @return object || Array The vendors package details.
      */
     public static function getVendorsPackageDetails($vendorAndPackage = null, $object = false)
     {
@@ -223,7 +223,7 @@ class PackagistApiServices
             return trans('laravelpackagist::laravelpackagist.missing-vendor-package');
         }
 
-        if((!strstr($vendorAndPackage, '/')) || (count(explode("/", $vendorAndPackage)) != 2)){
+        if ((!strstr($vendorAndPackage, '/')) || (count(explode('/', $vendorAndPackage)) != 2)) {
             return trans('laravelpackagist::laravelpackagist.malformed-vendor-package');
         }
 
@@ -262,9 +262,9 @@ class PackagistApiServices
     /**
      * Gets the vendors total downloads.
      *
-     * @param string $vendor    The vendor
+     * @param string $vendor The vendor
      *
-     * @return integer          The vendors total downloads.
+     * @return int The vendors total downloads.
      */
     public static function getVendorsTotalDownloads($vendor = null)
     {
@@ -287,7 +287,7 @@ class PackagistApiServices
      *
      * @param string $vendor The vendor
      *
-     * @return integer The vendors total stars.
+     * @return int The vendors total stars.
      */
     public static function getVendorsTotalStars($vendor = null)
     {
@@ -304,5 +304,4 @@ class PackagistApiServices
 
         return $totalStars;
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace jeremykenedy\LaravelPackagist;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\ServiceProvider;
 
 class LaravelPackagistServiceProvider extends ServiceProvider
 {
@@ -60,7 +60,7 @@ class LaravelPackagistServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array($this->_packageTag);
+        return [$this->_packageTag];
     }
 
     /**
@@ -78,5 +78,4 @@ class LaravelPackagistServiceProvider extends ServiceProvider
             __DIR__.'/resources/lang' => base_path('resources/lang/vendor/'.$this->_packageTag),
         ], $this->_packageTag.'-lang');
     }
-
 }

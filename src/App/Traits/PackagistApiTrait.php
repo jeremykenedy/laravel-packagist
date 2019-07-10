@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Log;
 trait PackagistApiTrait
 {
     /**
-     * Curl the Packagist API
+     * Curl the Packagist API.
      *
-     * @param string $baseUrl  The base url
+     * @param string $baseUrl The base url
      *
      * @return object || string || null description_of_the_return_value
      */
@@ -18,16 +18,16 @@ trait PackagistApiTrait
     {
         $curl = curl_init();
         curl_setopt_array($curl, [
-            CURLOPT_URL => $baseUrl,
+            CURLOPT_URL            => $baseUrl,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => config('laravelpackagist.curl.maxredirects'),
-            CURLOPT_TIMEOUT => config('laravelpackagist.curl.timeout'),
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_HTTPHEADER => [
-                "Accept: application/json",
-                "cache-control: no-cache"
+            CURLOPT_ENCODING       => '',
+            CURLOPT_MAXREDIRS      => config('laravelpackagist.curl.maxredirects'),
+            CURLOPT_TIMEOUT        => config('laravelpackagist.curl.timeout'),
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => 'GET',
+            CURLOPT_HTTPHEADER     => [
+                'Accept: application/json',
+                'cache-control: no-cache',
             ],
         ]);
         $response = curl_exec($curl);
@@ -38,16 +38,16 @@ trait PackagistApiTrait
                 Log::error($err);
             }
 
-            return null;
+            return;
         }
 
         return $response;
     }
 
     /**
-     * Check if packagist vendor list exists in the cache
+     * Check if packagist vendor list exists in the cache.
      *
-     * @return boolean
+     * @return bool
      */
     private static function checkIfItemIsCached($key = null)
     {
@@ -57,7 +57,7 @@ trait PackagistApiTrait
             return false;
         }
 
-        if(Cache::has($key)) {
+        if (Cache::has($key)) {
             return true;
         }
 
@@ -65,24 +65,24 @@ trait PackagistApiTrait
     }
 
     /**
-     * Set the vendor cache key
+     * Set the vendor cache key.
      *
-     * @param string $key    The key
+     * @param string $key The key
      */
     private static function assignVendorCacheKey($key)
     {
-        $keyPlug = "packagistVendorKey";
+        $keyPlug = 'packagistVendorKey';
 
-        return $key . $keyPlug;
+        return $key.$keyPlug;
     }
 
     /**
      * Gets the specific package detail.
      *
-     * @param string $vendorAndPackage  The vendor and package
-     * @param string $detail            The detail
+     * @param string $vendorAndPackage The vendor and package
+     * @param string $detail           The detail
      *
-     * @return string           The specific package detail.
+     * @return string The specific package detail.
      */
     private static function getSpecificPackageDetail($vendorAndPackage, $detail = null)
     {
@@ -98,7 +98,7 @@ trait PackagistApiTrait
     /**
      * Gets the vendor list cache time.
      *
-     * @param integer $minutes   The Minutes
+     * @param int $minutes The Minutes
      *
      * @return dateTime The vendor list cache time.
      */
