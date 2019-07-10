@@ -228,7 +228,7 @@ class PackagistApiServices
         }
 
         $decode = true;
-        if ($object == true) {
+        if ($object === true) {
             $decode = false;
         }
 
