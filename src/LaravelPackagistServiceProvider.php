@@ -47,7 +47,7 @@ class LaravelPackagistServiceProvider extends ServiceProvider
     {
         $this->app->make('jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices');
         AliasLoader::getInstance()->alias('PackagistApiServices', \jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices::class);
-        $this->app->singleton(jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices::class, function() {
+        $this->app->singleton(jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices::class, function () {
             return new jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices();
         });
         $this->app->alias(jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices::class, $this->_packageTag);
