@@ -1,0 +1,29 @@
+language: php
+sudo: required
+dist: trusty
+group: edge
+
+php:
+  - 7.2
+  - 7.3
+
+sudo: false
+
+services:
+  - mysql
+
+before_script:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install
+  - composer create-project --prefer-dist laravel/laravel laravelpackagist
+  - cp .env.travis laravelpackagist/.env
+  - cd laravelpackagist
+  - composer self-update
+  - composer install --prefer-source --no-interaction
+  - composer dump-autoload
+  - composer require jeremykenedy/laravel-packagist
+  - php artisan key:generate
+  - composer dump-autoload
+  - php artisan clear-compiled
+  - sudo chgrp -R www-data storage bootstrap/cache
+  - sudo chmod -R ug+rwx storage bootstrap/cache
