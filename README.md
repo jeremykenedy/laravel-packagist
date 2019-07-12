@@ -72,6 +72,21 @@ Register the package with laravel in `config/app.php` under `providers` with the
 ```
 
 ### Usage
+1. Add the following to the head of the file you are calling the methods from:
+```
+use jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices;
+```
+
+File Example:
+```
+<?php
+
+namespace App\Services\Sections;
+
+use jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices;
+```
+
+2. Call the methods with the following:
 ```php
 PackagistApiServices::getPackageDownloads('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
 PackagistApiServices::getPackageDailyDownloads('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
