@@ -88,6 +88,14 @@ use jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices;
 
 2. Call the methods with the following:
 ```php
+// Vendors
+PackagistApiServices::getPackagistVendorRepositoriesList('VENDOR-NAME-HERE');
+PackagistApiServices::getVendorPackagesCount('VENDOR-NAME-HERE');
+PackagistApiServices::getVendorsPackagesDetails('VENDOR-NAME-HERE');
+PackagistApiServices::getVendorsTotalDownloads('VENDOR-NAME-HERE');
+PackagistApiServices::getVendorsTotalStars('VENDOR-NAME-HERE');
+
+// Individual Packages
 PackagistApiServices::getPackageDownloads('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
 PackagistApiServices::getPackageDailyDownloads('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
 PackagistApiServices::getPackageMonthlyDownloads('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
@@ -97,12 +105,7 @@ PackagistApiServices::getPackageTotalOpenIssues('VENDOR-NAME-HERE/PACKAGE-NAME-H
 PackagistApiServices::getPackageTotalRepo('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
 PackagistApiServices::getPackageTotalStars('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
 PackagistApiServices::getPackageTotalWatchers('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
-PackagistApiServices::getPackagistVendorRepositoriesList('VENDOR-NAME-HERE');
-PackagistApiServices::getVendorPackagesCount('VENDOR-NAME-HERE');
-PackagistApiServices::getVendorsPackagesDetails('VENDOR-NAME-HERE');
 PackagistApiServices::getVendorsPackageDetails('VENDOR-NAME-HERE/PACKAGE-NAME-HERE');
-PackagistApiServices::getVendorsTotalDownloads('VENDOR-NAME-HERE');
-PackagistApiServices::getVendorsTotalStars('VENDOR-NAME-HERE');
 ```
 
 ### Configuration
