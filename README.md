@@ -7,6 +7,7 @@
 [![StyleCI](https://github.styleci.io/repos/194171634/shield?branch=master)](https://github.styleci.io/repos/194171634)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jeremykenedy/laravel-packagist/?branch=master)
+[![MadeWithLaravel.com shield](https://madewithlaravel.com/storage/repo-shields/1573-shield.svg)](https://madewithlaravel.com/p/laravel-packagist/shield-link)
 [![License](https://poser.pugx.org/jeremykenedy/laravel-packagist/license)](https://packagist.org/packages/jeremykenedy/laravel-packagist)
 
 #### Table of contents
