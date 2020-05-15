@@ -1,5 +1,7 @@
+![Laravel Packagist](https://github-project-images.s3-us-west-2.amazonaws.com/logos/laravel-packagist-logo.png)
 
 # Laravel Packagist
+Laravel Packagist (LaravelPackagist) is a package for Laravel 5 to interact with the packagist api quickly and easily.
 
 [![Latest Stable Version](https://poser.pugx.org/jeremykenedy/laravel-packagist/v/stable.svg)](https://packagist.org/packages/jeremykenedy/laravel-packagist)
 [![Total Downloads](https://poser.pugx.org/jeremykenedy/laravel-packagist/d/total.svg)](https://packagist.org/packages/jeremykenedy/laravel-packagist)
@@ -11,7 +13,6 @@
 [![License](https://poser.pugx.org/jeremykenedy/laravel-packagist/license)](https://packagist.org/packages/jeremykenedy/laravel-packagist)
 
 #### Table of contents
-- [About](#about)
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation Instructions](#installation-instructions)
@@ -22,9 +23,6 @@
     - [Environment File](#environment-file)
 - [File Tree](#file-tree)
 - [License](#license)
-
-### About
-Laravel Packagist (LaravelPackagist) is a package for Laravel 5 to interact with the packagist api quickly and easily.
 
 ### Features
 | Laravel Packagist Features  |
