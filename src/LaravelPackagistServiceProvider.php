@@ -29,7 +29,14 @@ class LaravelPackagistServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/laravelpackagist.php', 'laravelpackagist');
+        if (! $this->app->configurationIsCached()) {
+            $config = $this->app['config'];
+            $config->set('laravelpackagist', array_replace_recursive(
+                require __DIR__.'/config/laravelpackagist.php',
+                $config->get('laravelpackagist', [])
+            ));
+        }
+
         $this->app->singleton(PackagistClient::class, CurlPackagistClient::class);
         $this->app->singleton(PackagistApiServices::class);
         $this->app->alias(PackagistApiServices::class, 'laravelpackagist');
