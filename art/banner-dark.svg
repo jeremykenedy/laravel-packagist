@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" role="img" aria-labelledby="title description">
+    <title id="title">Laravel Packagist</title>
+    <desc id="description">Package details, vendor statistics, and Laravel caching.</desc>
+    <defs><linearGradient id="background" x2="1" y2="1"><stop stop-color="#0c0a09"/><stop offset="1" stop-color="#1c1917"/></linearGradient></defs>
+    <rect width="800" height="200" rx="16" fill="url(#background)"/>
+    <g font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+        <text x="40" y="80" font-size="40" font-weight="700" letter-spacing="-.5" fill="#fff">Laravel Packagist</text>
+        <text x="40" y="112" font-size="14" fill="#a8a29e">Packagist data, ready for your Laravel application.</text>
+    <rect x="40" y="132" width="100" height="22" rx="11" stroke-width=".8" fill="#1a1a1a" stroke="#c4b5fd" opacity=".8"/>
+    <text x="90.0" y="146" text-anchor="middle" font-size="10" font-weight="500" fill="#c4b5fd">Package details</text>
+    <rect x="148" y="132" width="96" height="22" rx="11" stroke-width=".8" fill="#1a1a1a" stroke="#60a5fa" opacity=".8"/>
+    <text x="196.0" y="146" text-anchor="middle" font-size="10" font-weight="500" fill="#60a5fa">Vendor statistics</text>
+    <rect x="252" y="132" width="94" height="22" rx="11" stroke-width=".8" fill="#1a1a1a" stroke="#4ade80" opacity=".8"/>
+    <text x="299.0" y="146" text-anchor="middle" font-size="10" font-weight="500" fill="#4ade80">Laravel caching</text>
+    </g>
+    <g transform="translate(570 35)" stroke-linejoin="round" stroke-linecap="round">
+        <circle cx="96" cy="65" r="68" fill="#292524"/>
+        <path d="M 41 42 L 94 16 L 147 42 L 94 68 Z" fill="#6d28d9" stroke="#a78bfa" stroke-width="2"/>
+        <path d="M 41 42 L 94 68 L 94 124 L 41 97 Z" fill="#4c1d95" stroke="#a78bfa" stroke-width="2"/>
+        <path d="M 94 68 L 147 42 L 147 97 L 94 124 Z" fill="#312e81" stroke="#a78bfa" stroke-width="2"/>
+        <path d="M 68 29 L 121 55 L 121 77" fill="none" stroke="#c4b5fd" stroke-width="4"/>
+        <rect x="130" y="84" width="43" height="43" rx="12" fill="#166534" stroke="#4ade80"/>
+        <path d="M 151 95 L 151 115 M 143 107 L 151 115 L 159 107" fill="none" stroke="#4ade80" stroke-width="3"/>
+    </g>
+</svg>

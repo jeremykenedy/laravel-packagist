@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" role="img" aria-labelledby="title description">
+    <title id="title">Laravel Packagist</title>
+    <desc id="description">Package details, vendor statistics, and Laravel caching.</desc>
+    <rect width="800" height="200" rx="16" fill="#fff" stroke="#e5e7eb"/>
+    <g font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+        <text x="40" y="80" font-size="40" font-weight="700" letter-spacing="-.5" fill="#0f172a">Laravel Packagist</text>
+        <text x="40" y="112" font-size="14" fill="#64748b">Packagist data, ready for your Laravel application.</text>
+    <rect x="40" y="132" width="100" height="22" rx="11" stroke-width=".8" fill="#f5f3ff" stroke="#c4b5fd"/>
+    <text x="90.0" y="146" text-anchor="middle" font-size="10" font-weight="500" fill="#6d28d9">Package details</text>
+    <rect x="148" y="132" width="96" height="22" rx="11" stroke-width=".8" fill="#eff6ff" stroke="#60a5fa"/>
+    <text x="196.0" y="146" text-anchor="middle" font-size="10" font-weight="500" fill="#1e40af">Vendor statistics</text>
+    <rect x="252" y="132" width="94" height="22" rx="11" stroke-width=".8" fill="#f0fdf4" stroke="#4ade80"/>
+    <text x="299.0" y="146" text-anchor="middle" font-size="10" font-weight="500" fill="#166534">Laravel caching</text>
+    </g>
+    <g transform="translate(570 35)" stroke-linejoin="round" stroke-linecap="round">
+        <circle cx="96" cy="65" r="68" fill="#f5f3ff"/>
+        <path d="M 41 42 L 94 16 L 147 42 L 94 68 Z" fill="#ede9fe" stroke="#a78bfa" stroke-width="2"/>
+        <path d="M 41 42 L 94 68 L 94 124 L 41 97 Z" fill="#ddd6fe" stroke="#a78bfa" stroke-width="2"/>
+        <path d="M 94 68 L 147 42 L 147 97 L 94 124 Z" fill="#c4b5fd" stroke="#a78bfa" stroke-width="2"/>
+        <path d="M 68 29 L 121 55 L 121 77" fill="none" stroke="#8b5cf6" stroke-width="4"/>
+        <rect x="130" y="84" width="43" height="43" rx="12" fill="#f0fdf4" stroke="#4ade80"/>
+        <path d="M 151 95 L 151 115 M 143 107 L 151 115 L 159 107" fill="none" stroke="#166534" stroke-width="3"/>
+    </g>
+</svg>

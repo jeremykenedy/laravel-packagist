@@ -2,112 +2,65 @@
 
 namespace jeremykenedy\LaravelPackagist\App\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
+use jeremykenedy\LaravelPackagist\Http\PackagistHttp;
 
 trait PackagistApiTrait
 {
-    /**
-     * Curl the Packagist API.
-     *
-     * @param string $baseUrl The base url
-     *
-     * @return object || string || null description_of_the_return_value
-     */
     private static function curlPackagist($baseUrl)
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL            => $baseUrl,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING       => '',
-            CURLOPT_MAXREDIRS      => config('laravelpackagist.curl.maxredirects'),
-            CURLOPT_TIMEOUT        => config('laravelpackagist.curl.timeout'),
-            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST  => 'GET',
-            CURLOPT_HTTPHEADER     => [
-                'Accept: application/json',
-                'cache-control: no-cache',
-            ],
-        ]);
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        curl_close($curl);
-        if ($err) {
-            if (config('laravelpackagist.logging.curlErrors')) {
-                Log::error($err);
-            }
-
-            return;
-        }
-
-        return $response;
+        return PackagistHttp::get($baseUrl);
     }
 
-    /**
-     * Check if packagist vendor list exists in the cache.
-     *
-     * @return bool
-     */
     private static function checkIfItemIsCached($key = null)
     {
-        $cachingEnabled = config('laravelpackagist.caching.enabled');
-
-        if (!$cachingEnabled) {
-            return false;
-        }
-
-        if (Cache::has($key)) {
-            return true;
-        }
-
-        return false;
+        return config('laravelpackagist.caching.enabled') && Cache::has($key);
     }
 
-    /**
-     * Set the vendor cache key.
-     *
-     * @param string $key The key
-     */
     private static function assignVendorCacheKey($key)
     {
-        $keyPlug = 'packagistVendorKey';
-
-        return $key.$keyPlug;
+        return $key.'packagistVendorKey';
     }
 
-    /**
-     * Gets the specific package detail.
-     *
-     * @param string $vendorAndPackage The vendor and package
-     * @param string $detail           The detail
-     *
-     * @return string The specific package detail.
-     */
     private static function getSpecificPackageDetail($vendorAndPackage, $detail = null)
     {
-        $packageDetails = self::getVendorsPackageDetails($vendorAndPackage);
+        $package = self::getVendorsPackageDetails($vendorAndPackage);
 
-        if (!is_array($packageDetails)) {
-            return $packageDetails;
-        }
-
-        return $packageDetails[$detail];
+        return is_array($package) ? ($package[$detail] ?? null) : $package;
     }
 
-    /**
-     * Gets the vendor list cache time.
-     *
-     * @param int $minutes The Minutes
-     *
-     * @return dateTime The vendor list cache time.
-     */
     private static function getVendorListCacheTime($minutes = null)
     {
-        if ($minutes === null) {
-            $minutes = config('laravelpackagist.caching.vendorListCacheTime');
+        return Carbon::now()->addMinutes((int) ($minutes ?? config('laravelpackagist.caching.vendorListCacheTime', 100)));
+    }
+
+    private static function getCachedPackage($name)
+    {
+        if (self::checkIfItemIsCached($name)) {
+            $package = self::decodePackage(Cache::get($name));
+
+            if ($package !== null) {
+                return $package;
+            }
         }
 
-        return now()->addMinutes($minutes);
+        $url = config('laravelpackagist.urls.projectPreFix').$name.config('laravelpackagist.urls.projectPostFix');
+        $response = self::curlPackagist($url);
+        $package = self::decodePackage($response);
+
+        if ($package !== null && config('laravelpackagist.caching.enabled')) {
+            Cache::put($name, $response, self::getVendorListCacheTime(config('laravelpackagist.caching.vendorItemCacheTime', 100)));
+        }
+
+        return $package;
+    }
+
+    private static function decodePackage($value)
+    {
+        $data = is_string($value) ? json_decode($value) : json_decode(json_encode($value));
+        $package = is_object($data) ? ($data->package ?? $data) : null;
+
+        return is_object($package) && isset($package->name) ? $package : null;
     }
 }

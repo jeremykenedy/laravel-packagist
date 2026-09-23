@@ -1,12 +1,12 @@
 {
     "name": "jeremykenedy/laravel-packagist",
-    "description": "",
+    "description": "Retrieve Packagist package details and vendor statistics from Laravel.",
     "keywords": [
-            "laravel packagist",
-            "laravel packagist API",
-            "packagist API",
-            "packagist"
-        ],
+        "laravel",
+        "packagist",
+        "api",
+        "statistics"
+    ],
     "license": "MIT",
     "type": "package",
     "authors": [
@@ -16,7 +16,11 @@
         }
     ],
     "require": {
-        "php": ">=7.1.3"
+        "php": ">=7.1.3",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "illuminate/console": "^5.4 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+        "illuminate/support": "^5.4 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0"
     },
     "autoload": {
         "psr-4": {
@@ -33,5 +37,20 @@
     "config": {
         "sort-packages": true
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "orchestra/testbench": "^3.4 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "phpunit/phpunit": "^6.5 || ^7.5 || ^8.5 || ^9.6 || ^10.5 || ^11.5 || ^12.0 || ^13.0",
+        "mockery/mockery": "^0.9.11 || ^1.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "jeremykenedy\\LaravelPackagist\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "@php tools/vendor/bin/pint --test",
+        "format": "@php tools/vendor/bin/pint"
+    }
 }

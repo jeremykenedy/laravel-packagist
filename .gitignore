@@ -1,0 +1,9 @@
+/.env
+/.DS_Store
+/.phpunit.cache/
+/.phpunit.result.cache
+/composer.lock
+/coverage/
+/vendor/
+/tools/composer.lock
+/tools/vendor/
