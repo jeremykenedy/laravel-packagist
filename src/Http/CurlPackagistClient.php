@@ -21,26 +21,42 @@ class CurlPackagistClient implements PackagistClient
     public function get($url)
     {
         $retries = max(0, min(5, (int) $this->config->get('laravelpackagist.curl.retries', 0)));
+        $error = '';
 
         for ($attempt = 0; $attempt <= $retries; $attempt++) {
             [$body, $status, $error] = $this->request($url);
 
-            if ($error === '' && $status >= 200 && $status < 300) {
+            if ($this->isSuccessful($status, $error)) {
                 return $body;
             }
 
-            if ($attempt === $retries || ($error === '' && $status !== 429 && $status < 500)) {
+            if ($attempt === $retries || ! $this->shouldRetry($status, $error)) {
                 break;
             }
 
             usleep(100000 * (2 ** $attempt));
         }
 
+        $this->logError($error);
+
+        return null;
+    }
+
+    private function isSuccessful($status, $error)
+    {
+        return $error === '' && $status >= 200 && $status < 300;
+    }
+
+    private function shouldRetry($status, $error)
+    {
+        return $error !== '' || $status === 429 || $status >= 500;
+    }
+
+    private function logError($error)
+    {
         if ($error !== '' && $this->config->get('laravelpackagist.logging.curlErrors', true)) {
             $this->logger->error($error);
         }
-
-        return null;
     }
 
     private function request($url)

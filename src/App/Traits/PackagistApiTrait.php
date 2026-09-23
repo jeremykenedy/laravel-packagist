@@ -5,6 +5,7 @@ namespace jeremykenedy\LaravelPackagist\App\Traits;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use jeremykenedy\LaravelPackagist\Http\PackagistHttp;
+use stdClass;
 
 trait PackagistApiTrait
 {
@@ -59,8 +60,8 @@ trait PackagistApiTrait
     private static function decodePackage($value)
     {
         $data = is_string($value) ? json_decode($value) : json_decode(json_encode($value));
-        $package = is_object($data) ? ($data->package ?? $data) : null;
+        $package = $data instanceof stdClass ? ($data->package ?? $data) : null;
 
-        return is_object($package) && isset($package->name) ? $package : null;
+        return $package instanceof stdClass && isset($package->name) ? $package : null;
     }
 }

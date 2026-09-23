@@ -93,6 +93,24 @@ class CurlPackagistClientTest extends TestCase
         }
     }
 
+    public function test_retries_stop_at_the_limit_and_skip_permanent_errors()
+    {
+        foreach ([404 => 1, 429 => 2, 503 => 2] as $status => $attempts) {
+            $counter = tempnam(sys_get_temp_dir(), 'packagist-retry-');
+
+            try {
+                $this->withServer(function ($url) use ($counter, $status, $attempts) {
+                    $response = $this->client(['retries' => 1])->get($url.'/retry?counter='.rawurlencode($counter).'&code='.$status);
+
+                    $this->assertNull($response);
+                    $this->assertSame((string) $attempts, file_get_contents($counter));
+                });
+            } finally {
+                unlink($counter);
+            }
+        }
+    }
+
     public function test_connection_errors_are_logged_once()
     {
         $logger = \Mockery::mock(LoggerInterface::class);
