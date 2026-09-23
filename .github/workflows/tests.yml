@@ -1,0 +1,79 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { php: '7.1', laravel: '5.4', testbench: '~3.4.0', phpunit: '^6.5', composer: '2.2' }
+          - { php: '7.1', laravel: '5.5', testbench: '~3.5.0', phpunit: '^6.5', composer: '2.2' }
+          - { php: '7.1', laravel: '5.6', testbench: '~3.6.0', phpunit: '^7.5', composer: '2.2' }
+          - { php: '7.1', laravel: '5.7', testbench: '~3.7.0', phpunit: '^7.5', composer: '2.2' }
+          - { php: '7.1', laravel: '5.8', testbench: '~3.8.0', phpunit: '^7.5', composer: '2.2' }
+          - { php: '7.2', laravel: '6', testbench: '^4.0', phpunit: '^8.5', composer: '2.2' }
+          - { php: '7.2', laravel: '7', testbench: '^5.0', phpunit: '^8.5', composer: '2.2' }
+          - { php: '7.3', laravel: '8', testbench: '^6.0', phpunit: '^9.6', composer: '2.2' }
+          - { php: '8.0', laravel: '8', testbench: '^6.0', phpunit: '^9.6', composer: '2' }
+          - { php: '8.0', laravel: '9', testbench: '^7.0', phpunit: '^9.6', composer: '2' }
+          - { php: '8.1', laravel: '10', testbench: '^8.0', phpunit: '^10.5', composer: '2' }
+          - { php: '8.2', laravel: '11', testbench: '^9.0', phpunit: '^11.5', composer: '2' }
+          - { php: '8.2', laravel: '12', testbench: '^10.0', phpunit: '^11.5', composer: '2' }
+          - { php: '8.3', laravel: '13', testbench: '^11.0', phpunit: '^12.0', composer: '2' }
+          - { php: '8.4', laravel: '13', testbench: '^11.0', phpunit: '^13.0', composer: '2' }
+          - { php: '8.5', laravel: '13', testbench: '^11.0', phpunit: '^13.0', composer: '2' }
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, mbstring, dom, sqlite3
+          coverage: none
+          tools: composer:${{ matrix.composer }}
+      - name: Install compatibility dependencies
+        env:
+          COMPOSER_NO_SECURITY_BLOCKING: '1'
+        run: |
+          composer require --dev --no-update "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}"
+          composer update --prefer-dist --no-interaction --no-progress
+      - name: Run tests
+        run: composer test
+      - name: Check PHP syntax
+        run: find src tests -name '*.php' -print0 | xargs -0 -n1 php -l
+
+  quality:
+    name: Style, coverage, and dependency audit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240
+        with:
+          php-version: '8.5'
+          extensions: curl, mbstring, dom, sqlite3
+          coverage: xdebug
+          tools: composer:2
+      - run: composer validate --strict
+      - run: composer update --prefer-dist --no-interaction --no-progress
+      - run: composer --working-dir=tools install --prefer-dist --no-interaction --no-progress
+      - run: composer lint
+      - run: composer audit
+      - run: vendor/bin/phpunit --coverage-filter src --coverage-clover coverage/clover.xml --coverage-text
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: coverage
+          path: coverage/clover.xml

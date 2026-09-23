@@ -1,0 +1,41 @@
+filter:
+  paths:
+    - src/*
+  excluded_paths:
+    - tests/*
+    - vendor/*
+    - tools/*
+
+checks:
+  php:
+    code_rating: true
+    duplication: true
+
+build:
+  environment:
+    php:
+      version: '8.2'
+  dependencies:
+    override:
+      - composer install --prefer-dist --no-interaction --no-progress
+  nodes:
+    tests:
+      tests:
+        override:
+          - command: vendor/bin/phpunit --coverage-filter src --coverage-clover coverage/clover.xml
+            environment:
+              XDEBUG_MODE: coverage
+            coverage:
+              file: coverage/clover.xml
+              format: clover
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
+
+tools:
+  external_code_coverage: false
+
+build_failure_conditions:
+  - 'elements.rating(<= B).exists'
+  - 'issues.severity(>= MAJOR).new.exists'

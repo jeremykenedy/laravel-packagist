@@ -8,9 +8,9 @@ return [
     |--------------------------------------------------------------------------
     */
     'caching' => [
-        'enabled'               => env('PACKAGIST_CACHE_ENABLED', true),
-        'vendorListCacheTime'   => env('PACKAGIST_VENDOR_LIST_CACHE_TIME_MINUTES', 100),
-        'vendorItemCacheTime'   => env('PACKAGIST_VENDOR_ITEM_CACHE_TIME_MINUTES', 100),
+        'enabled' => env('PACKAGIST_CACHE_ENABLED', true),
+        'vendorListCacheTime' => env('PACKAGIST_VENDOR_LIST_CACHE_TIME_MINUTES', 100),
+        'vendorItemCacheTime' => env('PACKAGIST_VENDOR_ITEM_CACHE_TIME_MINUTES', 100),
     ],
 
     /*
@@ -19,8 +19,10 @@ return [
     |--------------------------------------------------------------------------
     */
     'curl' => [
-        'timeout'       => env('PACKAGIST_CURL_TIMEOUT', 30),
-        'maxredirects'  => env('PACKAGIST_CURL_MAX_REDIRECTS', 10),
+        'timeout' => env('PACKAGIST_CURL_TIMEOUT', 30),
+        'connectTimeout' => env('PACKAGIST_CURL_CONNECT_TIMEOUT', 300),
+        'retries' => env('PACKAGIST_CURL_RETRIES', 0),
+        'maxredirects' => env('PACKAGIST_CURL_MAX_REDIRECTS', 10),
     ],
 
     /*
@@ -29,8 +31,8 @@ return [
     |--------------------------------------------------------------------------
     */
     'urls' => [
-        'vendorBase'     => env('PACKAGIST_API_VENDOR_URL_BASE', 'https://packagist.org/packages/list.json?vendor='),
-        'projectPreFix'  => env('PACKAGIST_API_VENDOR_PROJECT_BASE_PREFIX', 'https://packagist.org/packages/'),
+        'vendorBase' => env('PACKAGIST_API_VENDOR_URL_BASE', 'https://packagist.org/packages/list.json?vendor='),
+        'projectPreFix' => env('PACKAGIST_API_VENDOR_PROJECT_BASE_PREFIX', 'https://packagist.org/packages/'),
         'projectPostFix' => env('PACKAGIST_API_VENDOR_PROJECT_BASE_POSTFIX', '.json'),
     ],
 

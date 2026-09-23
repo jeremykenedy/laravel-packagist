@@ -8,8 +8,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'missing-vendor-package'    => 'Missing "vendor/package"',
-    'malformed-vendor-package'  => 'Malformed "vendor/package"',
-    'package-not-found'         => 'Packagist package not found.',
+    'missing-vendor-package' => 'Missing "vendor/package"',
+    'malformed-vendor-package' => 'Malformed "vendor/package"',
+    'package-not-found' => 'Packagist package not found.',
 
 ];

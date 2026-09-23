@@ -4,78 +4,47 @@ namespace jeremykenedy\LaravelPackagist;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices;
+use jeremykenedy\LaravelPackagist\Console\InstallCommand;
+use jeremykenedy\LaravelPackagist\Console\UpdateCommand;
+use jeremykenedy\LaravelPackagist\Contracts\PackagistClient;
+use jeremykenedy\LaravelPackagist\Http\CurlPackagistClient;
 
 class LaravelPackagistServiceProvider extends ServiceProvider
 {
-    private $_packageTag = 'laravelpackagist';
-
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__.'/resources/lang/', $this->_packageTag);
+        $this->loadTranslationsFrom(__DIR__.'/resources/lang', 'laravelpackagist');
+        $this->publishes([
+            __DIR__.'/config/laravelpackagist.php' => $this->app->configPath('laravelpackagist.php'),
+        ], 'laravelpackagist-config');
+        $this->publishes([
+            __DIR__.'/resources/lang' => $this->app->langPath().'/vendor/laravelpackagist',
+        ], 'laravelpackagist-lang');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([InstallCommand::class, UpdateCommand::class]);
+        }
     }
 
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
     public function register()
     {
-        $this->packageRegistration();
-        $this->mergeConfigFrom(__DIR__.'/config/'.$this->_packageTag.'.php', $this->_packageTag);
-        $this->publishFiles();
+        if (! $this->app->configurationIsCached()) {
+            $config = $this->app['config'];
+            $config->set('laravelpackagist', array_replace_recursive(
+                require __DIR__.'/config/laravelpackagist.php',
+                $config->get('laravelpackagist', [])
+            ));
+        }
+
+        $this->app->singleton(PackagistClient::class, CurlPackagistClient::class);
+        $this->app->singleton(PackagistApiServices::class);
+        $this->app->alias(PackagistApiServices::class, 'laravelpackagist');
+        AliasLoader::getInstance()->alias('PackagistApiServices', PackagistApiServices::class);
     }
 
-    /**
-     * Package Registration.
-     *
-     * @return void
-     */
-    private function packageRegistration()
-    {
-        $this->app->make('jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices');
-        AliasLoader::getInstance()->alias('PackagistApiServices', \jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices::class);
-        $this->app->singleton(jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices::class, function () {
-            return new jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices();
-        });
-        $this->app->alias(jeremykenedy\LaravelPackagist\App\Services\PackagistApiServices::class, $this->_packageTag);
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
     public function provides()
     {
-        return [$this->_packageTag];
-    }
-
-    /**
-     * Publish files for Laravel Blocker.
-     *
-     * @return void
-     */
-    private function publishFiles()
-    {
-        $this->publishes([
-            __DIR__.'/config/'.$this->_packageTag.'.php' => base_path('config/'.$this->_packageTag.'.php'),
-        ], $this->_packageTag.'-config');
-
-        $this->publishes([
-            __DIR__.'/resources/lang' => base_path('resources/lang/vendor/'.$this->_packageTag),
-        ], $this->_packageTag.'-lang');
+        return ['laravelpackagist'];
     }
 }

@@ -1,0 +1,11 @@
+{
+    "name": "jeremykenedy/laravel-packagist-tools",
+    "description": "Development tools for Laravel Packagist.",
+    "license": "MIT",
+    "require-dev": {
+        "laravel/pint": "^1.29"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
