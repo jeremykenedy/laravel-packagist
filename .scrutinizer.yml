@@ -14,7 +14,7 @@ checks:
 build:
   environment:
     php:
-      version: '8.3'
+      version: '8.2'
   dependencies:
     override:
       - composer install --prefer-dist --no-interaction --no-progress
