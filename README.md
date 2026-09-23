@@ -266,7 +266,7 @@ All settings are in [config/laravelpackagist.php](src/config/laravelpackagist.ph
 | `caching.vendorListCacheTime` | `PACKAGIST_VENDOR_LIST_CACHE_TIME_MINUTES` | `100` minutes |
 | `caching.vendorItemCacheTime` | `PACKAGIST_VENDOR_ITEM_CACHE_TIME_MINUTES` | `100` minutes |
 | `curl.timeout` | `PACKAGIST_CURL_TIMEOUT` | `30` seconds per attempt |
-| `curl.connectTimeout` | `PACKAGIST_CURL_CONNECT_TIMEOUT` | `10` seconds per attempt |
+| `curl.connectTimeout` | `PACKAGIST_CURL_CONNECT_TIMEOUT` | `300` seconds, preserving the cURL default |
 | `curl.retries` | `PACKAGIST_CURL_RETRIES` | `0` additional attempts |
 | `curl.maxredirects` | `PACKAGIST_CURL_MAX_REDIRECTS` | `10`, retained for compatibility; redirects are not followed |
 | `urls.vendorBase` | `PACKAGIST_API_VENDOR_URL_BASE` | `https://packagist.org/packages/list.json?vendor=` |
@@ -275,7 +275,7 @@ All settings are in [config/laravelpackagist.php](src/config/laravelpackagist.ph
 | `vendor.default` | `PACKAGIST_DEFAULT_VENDOR` | `jeremykenedy` |
 | `logging.curlErrors` | `PACKAGIST_LOG_CURL_ERROR` | `true` |
 
-Retries are optional and capped at five. They apply to connection failures, HTTP 429, and HTTP 5xx responses, with delays starting at 100 milliseconds and doubling between attempts. Timeouts have a minimum of one second. Failed requests and invalid package responses are not cached.
+Retries are optional and capped at five. They apply to connection failures, HTTP 429, and HTTP 5xx responses, with delays starting at 100 milliseconds and doubling between attempts. The total timeout also limits connection time. A zero total timeout retains the existing unlimited response timeout; the default remains 30 seconds. Failed requests and invalid package responses are not cached.
 
 ```dotenv
 PACKAGIST_DEFAULT_VENDOR=jeremykenedy
@@ -283,7 +283,7 @@ PACKAGIST_CACHE_ENABLED=true
 PACKAGIST_VENDOR_LIST_CACHE_TIME_MINUTES=100
 PACKAGIST_VENDOR_ITEM_CACHE_TIME_MINUTES=100
 PACKAGIST_CURL_TIMEOUT=30
-PACKAGIST_CURL_CONNECT_TIMEOUT=10
+PACKAGIST_CURL_CONNECT_TIMEOUT=300
 PACKAGIST_CURL_RETRIES=0
 ```
 

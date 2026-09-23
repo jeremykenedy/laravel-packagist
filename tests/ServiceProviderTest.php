@@ -26,7 +26,7 @@ class ServiceProviderTest extends TestCase
 
         $this->assertSame(7, config('laravelpackagist.curl.timeout'));
         $this->assertSame(0, config('laravelpackagist.curl.maxredirects'));
-        $this->assertSame(10, config('laravelpackagist.curl.connectTimeout'));
+        $this->assertSame(300, config('laravelpackagist.curl.connectTimeout'));
         $this->assertSame(0, config('laravelpackagist.curl.retries'));
         $this->assertSame('custom', config('laravelpackagist.vendor.default'));
         $this->assertFalse(config('laravelpackagist.caching.enabled'));

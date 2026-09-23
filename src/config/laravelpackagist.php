@@ -20,7 +20,7 @@ return [
     */
     'curl' => [
         'timeout' => env('PACKAGIST_CURL_TIMEOUT', 30),
-        'connectTimeout' => env('PACKAGIST_CURL_CONNECT_TIMEOUT', 10),
+        'connectTimeout' => env('PACKAGIST_CURL_CONNECT_TIMEOUT', 300),
         'retries' => env('PACKAGIST_CURL_RETRIES', 0),
         'maxredirects' => env('PACKAGIST_CURL_MAX_REDIRECTS', 10),
     ],

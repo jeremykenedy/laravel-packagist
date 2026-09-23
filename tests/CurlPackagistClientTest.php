@@ -115,4 +115,13 @@ class CurlPackagistClientTest extends TestCase
             $this->assertLessThan(1.8, microtime(true) - $started);
         });
     }
+
+    public function test_zero_timeout_keeps_the_existing_unlimited_response_timeout()
+    {
+        $this->withServer(function ($url) {
+            $response = $this->client(['timeout' => 0])->get($url.'/slow');
+
+            $this->assertTrue(json_decode($response, true)['ok']);
+        });
+    }
 }
